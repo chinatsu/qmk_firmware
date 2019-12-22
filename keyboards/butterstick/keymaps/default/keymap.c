@@ -30,11 +30,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       STN_S1, STN_TL, STN_PL, STN_HL, STN_ST1, STN_FR, STN_PR, STN_LR, STN_TR, STN_DR,
       STN_S2, STN_KL, STN_WL, STN_RL, STN_ST2, STN_RR, STN_BR, STN_GR, STN_SR, STN_ZR
   ),
-  // Tetris specific keybinds
-  [TETRIS] = LAYOUT_butter(
-      KC_LSFT, KC_Z, KC_X, KC_C, KC_SPC, KC_SPC, KC_LEFT, KC_DOWN, KC_RIGHT, KC_F4,
-      KC_LSFT, KC_Z, KC_X, KC_C, KC_SPC, KC_SPC, KC_LEFT, KC_DOWN, KC_RIGHT, TO(BASE)
-  )
 };
 // Note: You can only use basic keycodes here!
 // P() is just a wrapper to make your life easier, any C code can be executed.
