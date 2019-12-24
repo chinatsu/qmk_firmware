@@ -8,6 +8,7 @@
 
 #include QMK_KEYBOARD_H
 #include "sten.h"
+#include <print.h>
 
 // "Layer" aliases
 #define LNUM GRT
@@ -36,10 +37,19 @@ uint32_t processQwerty(bool lookup) {
 	return 0;
 }
 // Blank template at the bottom
-const uint16_t PROGMEM keymaps[][MATRIX_COLS][MATRIX_ROWS] = {
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = LAYOUT_ginny(
 		STN_WL, STN_HL, STN_RL, STN_ST1, STN_ST2, STN_S1, STN_S2, STN_TL, STN_KL, STN_PL
 )};
+
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  // If console is enabled, it will print the matrix position and status of each key pressed
+#ifdef CONSOLE_ENABLE
+    uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
+#endif
+  return true;
+}
 
 // Don't fuck with this, thanks.
 size_t keymapsCount  = sizeof(keymaps)/sizeof(keymaps[0]);

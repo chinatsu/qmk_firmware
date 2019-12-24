@@ -30,15 +30,16 @@ uint8_t init_mcp23018(void);
 
 /*  -------- LEFT HAND------RIGHT HAND ---------- */
 #define LAYOUT_ginny( L00,L01,L02,L03,L04,   R00,R01,R02,R03,R04) { \
-    { L04, KC_NO}, \
-    { L03, KC_NO}, \
-    { L02, KC_NO}, \
-    { L01, KC_NO }, \
-    { R00, R00 }, \
-    { R01, R01 }, \
-    { R02, R02 }, \
-    { R03, R03 }, \
-    { R04, R04 }, \
+    { R00, KC_NO  },                    \
+    { R01,   KC_NO },      \
+    { R02,   KC_NO },    \
+    { R03,   KC_NO },    \
+    { R04,   KC_NO },    \
+   	{ L04, 		KC_NO},  	  \
+    { L03, 		KC_NO},    \
+    { L02, 		KC_NO},    \
+    { L01, 		KC_NO},   	\
+    { L00, 		KC_NO },    \
 }
 
     /*{ KC_NO,  L04},  	  \

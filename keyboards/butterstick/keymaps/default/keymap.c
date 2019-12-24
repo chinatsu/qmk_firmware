@@ -30,6 +30,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       STN_S1, STN_TL, STN_PL, STN_HL, STN_ST1, STN_FR, STN_PR, STN_LR, STN_TR, STN_DR,
       STN_S2, STN_KL, STN_WL, STN_RL, STN_ST2, STN_RR, STN_BR, STN_GR, STN_SR, STN_ZR
   ),
+  [TETRIS] = LAYOUT_butter(
+      KC_LSHIFT, KC_Z, KC_X, KC_C, KC_SPACE, KC_SPACE, KC_LEFT, KC_DOWN, KC_RIGHT, KC_F4,
+      KC_LSHIFT, KC_Z, KC_X, KC_C, KC_SPACE, KC_SPACE, KC_LEFT, KC_DOWN, KC_RIGHT, TO(BASE)
+  )
 };
 // Note: You can only use basic keycodes here!
 // P() is just a wrapper to make your life easier, any C code can be executed.
@@ -42,7 +46,7 @@ uint32_t processQwerty(bool lookup) {
     P( LR  | ST2| RR | RB,   SEND(KC_BSPC));
     P( LSD | RZ,             SEND(KC_SPC));
     // Dual chords
-    P( LP | LH,              SEND(KC_LGUI));
+    P( LP  | LH,             SEND(KC_LGUI));
     P( LSU | LFT,            SEND(KC_LCTL));
     P( LSD | LK,             SEND(KC_LSFT));
     P( RZ  | RS,             SEND(KC_LSFT));
@@ -111,8 +115,8 @@ uint32_t processQwerty(bool lookup) {
 
 
     // Symbols and Numbers
-    P( SYMB | LP | LW,       SEND(KC_LSFT); SEND(KC_9));       // (
-    P( SYMB | LH | LR,       SEND(KC_LSFT); SEND(KC_0));       // )
+    P( SYMB | LP  | LW,      SEND(KC_LSFT); SEND(KC_9));       // (
+    P( SYMB | LH  | LR,      SEND(KC_LSFT); SEND(KC_0));       // )
     P( SYMB | ST1 | ST2,     SEND(KC_GRV));                    // `
     P( SYMB | RR  | RF,      SEND(KC_LSFT); SEND(KC_3));       // #
     P( SYMB | LFT | LK,      SEND(KC_LSFT); SEND(KC_4));       // $
@@ -126,8 +130,8 @@ uint32_t processQwerty(bool lookup) {
     P( SYMB | LR,            SEND(KC_RBRC));
     P( SYMB | ST1,           SEND(KC_LSFT); SEND(KC_BSLS));    // |
     P( SYMB | ST2,           SEND(KC_LSFT); SEND(KC_GRV));     // ~
-    P( SYMB | RP | RB,       SEND(KC_QUOT));
-    P( SYMB | RP | RG,       SEND(KC_LSFT); SEND(KC_QUOT));    // "
+    P( SYMB | RP  | RB,      SEND(KC_QUOT));
+    P( SYMB | RP  | RG,      SEND(KC_LSFT); SEND(KC_QUOT));    // "
     P( SYMB | RF,            SEND(KC_KP_PLUS));
     P( SYMB | RR,            SEND(KC_LSFT); SEND(KC_7));       // &
     P( SYMB | RP,            SEND(KC_MINS));
