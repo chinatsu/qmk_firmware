@@ -21,6 +21,8 @@ uint32_t processQwerty(bool lookup) {
 	P(F_10, 				SEND(KC_K));
 	P(F_11, 				SEND(KC_L));
 	P(F_12, 				SEND(KC_SCLN));
+	P(F_5 | F_8,			SEND(KC_ENT));
+	P(F_1 | F_12,			SEND(KC_BSPC));
 	return 0;
 }
 // Blank template at the bottom
