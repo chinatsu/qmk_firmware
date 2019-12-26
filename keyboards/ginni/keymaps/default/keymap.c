@@ -10,7 +10,34 @@
 #include "sten.h"
 #include <print.h>
 
+#define MOD (F_5 | F_8)
+
 uint32_t processQwerty(bool lookup) {
+	P(MOD | F_4 | F_9,			SEND(KC_ENT));
+	P(MOD | F_1 | F_12,			SEND(KC_BSPC));
+	P(F_4 | F_9, SEND(KC_SPC));
+
+	P(F_5 | F_1, SEND(KC_Q));
+	P(F_5 | F_2, SEND(KC_W));
+	P(F_5 | F_3, SEND(KC_E));
+	P(F_5 | F_4, SEND(KC_R));
+	P(F_5 | F_4 | F_9, SEND(KC_T));
+	P(F_8 | F_9 | F_4, SEND(KC_Y));
+	P(F_8 | F_9, SEND(KC_U));
+	P(F_8 | F_10, SEND(KC_I));
+	P(F_8 | F_11, SEND(KC_O));
+	P(F_8 | F_12, SEND(KC_P));
+	P(F_8 | F_1, SEND(KC_Z));
+	P(F_8 | F_2, SEND(KC_X));
+	P(F_8 | F_3, SEND(KC_C));
+	P(F_8 | F_4, SEND(KC_V));
+	P(F_8 | F_5 | F_8, SEND(KC_B));
+	P(F_8 | F_9 | F_5, SEND(KC_N));
+	P(F_5 | F_9, SEND(KC_M));
+	P(F_5 | F_10, SEND(KC_COMM));
+	P(F_5 | F_11, SEND(KC_DOT));
+	P(F_5 | F_12, SEND(KC_SLSH));
+
 	P(F_1, 				SEND(KC_A));
 	P(F_2, 				SEND(KC_S));
 	P(F_3, 				SEND(KC_D));
@@ -21,8 +48,6 @@ uint32_t processQwerty(bool lookup) {
 	P(F_10, 				SEND(KC_K));
 	P(F_11, 				SEND(KC_L));
 	P(F_12, 				SEND(KC_SCLN));
-	P(F_5 | F_8,			SEND(KC_ENT));
-	P(F_1 | F_12,			SEND(KC_BSPC));
 	return 0;
 }
 // Blank template at the bottom
