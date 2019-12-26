@@ -10,37 +10,27 @@
 #include "sten.h"
 #include <print.h>
 
-// "Layer" aliases
-#define LNUM GRT
-#define LQWE GRM
-#define LZXC GRR
-#define LSYM GRI
-
-#define RNUM GLT
-#define RQWE GLM
-#define RASD GLR
-#define RSYM GLI
-
-
-
 uint32_t processQwerty(bool lookup) {
-	P(GLP, 				SEND(KC_A));
-	P(GLR, 				SEND(KC_S));
-	P(GLM, 				SEND(KC_D));
-	P(GLI, 				SEND(KC_F));
-	P(GLT, 				SEND(KC_G));
-	P(GRT, 				SEND(KC_H));
-	P(GRI, 				SEND(KC_J));
-	P(GRM, 				SEND(KC_K));
-	P(GRR, 				SEND(KC_L));
-	P(GRP, 				SEND(KC_SCLN));
+	P(F_1, 				SEND(KC_A));
+	P(F_2, 				SEND(KC_S));
+	P(F_3, 				SEND(KC_D));
+	P(F_4, 				SEND(KC_F));
+	P(F_5, 				SEND(KC_G));
+	P(F_8, 				SEND(KC_H));
+	P(F_9, 				SEND(KC_J));
+	P(F_10, 				SEND(KC_K));
+	P(F_11, 				SEND(KC_L));
+	P(F_12, 				SEND(KC_SCLN));
 	return 0;
 }
 // Blank template at the bottom
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[0] = LAYOUT_ginny(
-		STN_WL, STN_HL, STN_RL, STN_ST1, STN_ST2, STN_S1, STN_S2, STN_TL, STN_KL, STN_PL
-)};
+	[0] = LAYOUT_georgi(
+			STN_FN,  STN_S1,  STN_TL,  STN_PL,  STN_HL,  STN_ST1,       STN_ST3, STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR,
+			STN_PWR, STN_S2,  STN_KL,  STN_WL,  STN_RL,  STN_ST2,       STN_ST4, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR,
+																 STN_N1,  STN_A,   STN_O,         STN_E,   STN_U,   STN_N7
+	)
+};
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

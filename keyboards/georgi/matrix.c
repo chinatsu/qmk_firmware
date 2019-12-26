@@ -283,9 +283,7 @@ static matrix_row_t read_cols(uint8_t row)
         out:
             i2c_stop();
 
-#ifdef DEBUG_MATRIX
             if (data != 0x00) xprintf("I2C: %d\n", data);
-#endif
             return data;
         }
     } else {

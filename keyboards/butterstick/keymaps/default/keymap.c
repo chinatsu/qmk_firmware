@@ -13,10 +13,9 @@
 // Function prefixes
 #define MEDIA (LSD | LK  | LW | LR)
 #define FUNCT (LSD | LK  | LP | LH)
-#define MOVE  (LSU | LFT | LP | LH)
-#define SYMB  (RD  | RZ)
-#define NUMA  (LW  | LR)
-#define NUMB  (RR  | RB)
+#define MOVE  (LSU | LFT | LP)
+#define SYMA  (LSD | LK)
+#define SYMB  (RZ  | RS)
 
 // QMK Layer Numbers
 #define BASE 0
@@ -43,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 uint32_t processQwerty(bool lookup) {
     // SECRET AGENT CHORDS
     P( LSU | LK | RS | RD,   SEND_STRING(VERSION); SEND_STRING(__DATE__));
-    P( LR  | ST2| RR | RB,   SEND(KC_BSPC));
+    P( LSU | RD,             SEND(KC_BSPC));
     P( LSD | RZ,             SEND(KC_SPC));
     // Dual chords
     P( LP  | LH,             SEND(KC_LGUI));
@@ -73,12 +72,14 @@ uint32_t processQwerty(bool lookup) {
     P( FUNCT | RS,           SEND(KC_F12));
 
     // Movement Layer
-    P( MOVE | RF,            SEND(KC_LEFT));
-    P( MOVE | RP,            SEND(KC_DOWN));
-    P( MOVE | RL,            SEND(KC_UP));
-    P( MOVE | RT,            SEND(KC_RIGHT));
+    P( MOVE | RG,            SEND(KC_LEFT));
+    P( MOVE | RS,            SEND(KC_DOWN));
+    P( MOVE | RT,            SEND(KC_UP));
+    P( MOVE | RZ,            SEND(KC_RIGHT));
     P( MOVE | ST1,           SEND(KC_PGUP));
     P( MOVE | ST2,           SEND(KC_PGDN));
+    P( MOVE | RF,            SEND(KC_PGUP));
+    P( MOVE | RR,            SEND(KC_PGDN));
 
     // Media Layer
     P( MEDIA | RF,           SEND(KC_MPRV));
@@ -90,56 +91,68 @@ uint32_t processQwerty(bool lookup) {
     P( MEDIA | RS,           SEND(KC_MUTE));
 
     // Number Row, Right
-    P( NUMB | LSU,           SEND(KC_1));
-    P( NUMB | LFT,           SEND(KC_2));
-    P( NUMB | LP,            SEND(KC_3));
-    P( NUMB | LH,            SEND(KC_4));
-    P( NUMB | ST1,           SEND(KC_5));
-    P( NUMB | RF,            SEND(KC_6));
-    P( NUMB | RP,            SEND(KC_7));
-    P( NUMB | RL,            SEND(KC_8));
-    P( NUMB | RT,            SEND(KC_9));
-    P( NUMB | RD,            SEND(KC_0));
+    P( RZ | LSU,           SEND(KC_1));
+    P( RZ | LFT,           SEND(KC_2));
+    P( RZ | LP,            SEND(KC_3));
+    P( RZ | LH,            SEND(KC_4));
+    P( RZ | ST1,           SEND(KC_5));
+    P( RZ | RF,            SEND(KC_6));
+    P( RZ | RP,            SEND(KC_7));
+    P( RZ | RL,            SEND(KC_8));
+    P( RZ | RT,            SEND(KC_9));
+    P( RZ | RD,            SEND(KC_0));
 
     // Number Row, Left
-    P( NUMA | LSU,           SEND(KC_1));
-    P( NUMA | LFT,           SEND(KC_2));
-    P( NUMA | LP,            SEND(KC_3));
-    P( NUMA | LH,            SEND(KC_4));
-    P( NUMA | ST1,           SEND(KC_5));
-    P( NUMA | RF,            SEND(KC_6));
-    P( NUMA | RP,            SEND(KC_7));
-    P( NUMA | RL,            SEND(KC_8));
-    P( NUMA | RT,            SEND(KC_9));
-    P( NUMA | RD,            SEND(KC_0));
+    P( LSD | LSU,           SEND(KC_1));
+    P( LSD | LFT,           SEND(KC_2));
+    P( LSD | LP,            SEND(KC_3));
+    P( LSD | LH,            SEND(KC_4));
+    P( LSD | ST1,           SEND(KC_5));
+    P( LSD | RF,            SEND(KC_6));
+    P( LSD | RP,            SEND(KC_7));
+    P( LSD | RL,            SEND(KC_8));
+    P( LSD | RT,            SEND(KC_9));
+    P( LSD | RD,            SEND(KC_0));
+
+    P(SYMA | LSU,           SEND(KC_LSFT); SEND(KC_1));
+    P(SYMA | LFT,           SEND(KC_LSFT); SEND(KC_2));
+    P(SYMA | LP,            SEND(KC_LSFT); SEND(KC_3))
+    P(SYMA | LH,            SEND(KC_LSFT); SEND(KC_4))
+    P(SYMA | ST1,           SEND(KC_LSFT); SEND(KC_5))
+    P(SYMA | RF,            SEND(KC_LSFT); SEND(KC_6))
+    P(SYMA | RP,            SEND(KC_LSFT); SEND(KC_7))
+    P(SYMA | RL,            SEND(KC_LSFT); SEND(KC_8))
+    P(SYMA | RT,            SEND(KC_LSFT); SEND(KC_9))
+    P(SYMA | RD,            SEND(KC_LSFT); SEND(KC_0));
+
+    P(SYMB | LSU,           SEND(KC_LSFT); SEND(KC_1));
+    P(SYMB | LFT,           SEND(KC_LSFT); SEND(KC_2));
+    P(SYMB | LP,            SEND(KC_LSFT); SEND(KC_3))
+    P(SYMB | LH,            SEND(KC_LSFT); SEND(KC_4))
+    P(SYMB | ST1,           SEND(KC_LSFT); SEND(KC_5))
+    P(SYMB | RF,            SEND(KC_LSFT); SEND(KC_6))
+    P(SYMB | RP,            SEND(KC_LSFT); SEND(KC_7))
+    P(SYMB | RL,            SEND(KC_LSFT); SEND(KC_8))
+    P(SYMB | RT,            SEND(KC_LSFT); SEND(KC_9))
+    P(SYMB | RD,            SEND(KC_LSFT); SEND(KC_0));
 
 
-    // Symbols and Numbers
-    P( SYMB | LP  | LW,      SEND(KC_LSFT); SEND(KC_9));       // (
-    P( SYMB | LH  | LR,      SEND(KC_LSFT); SEND(KC_0));       // )
-    P( SYMB | ST1 | ST2,     SEND(KC_GRV));                    // `
-    P( SYMB | RR  | RF,      SEND(KC_LSFT); SEND(KC_3));       // #
-    P( SYMB | LFT | LK,      SEND(KC_LSFT); SEND(KC_4));       // $
-    P( SYMB | LSU,           SEND(KC_LSFT); SEND(KC_1));       // !
-    P( SYMB | LSD,           SEND(KC_LSFT); SEND(KC_5));       // %
-    P( SYMB | LFT,           SEND(KC_LSFT); SEND(KC_2));       // @
-    P( SYMB | LK,            SEND(KC_LSFT); SEND(KC_6));       // ^
-    P( SYMB | LP,            SEND(KC_LSFT); SEND(KC_LBRC));    // {
-    P( SYMB | LW,            SEND(KC_LBRC));
-    P( SYMB | LH,            SEND(KC_LSFT); SEND(KC_RBRC));    // }
-    P( SYMB | LR,            SEND(KC_RBRC));
-    P( SYMB | ST1,           SEND(KC_LSFT); SEND(KC_BSLS));    // |
-    P( SYMB | ST2,           SEND(KC_LSFT); SEND(KC_GRV));     // ~
-    P( SYMB | RP  | RB,      SEND(KC_QUOT));
-    P( SYMB | RP  | RG,      SEND(KC_LSFT); SEND(KC_QUOT));    // "
-    P( SYMB | RF,            SEND(KC_KP_PLUS));
-    P( SYMB | RR,            SEND(KC_LSFT); SEND(KC_7));       // &
-    P( SYMB | RP,            SEND(KC_MINS));
-    P( SYMB | RB,            SEND(KC_EQL));
-    P( SYMB | RL,            SEND(KC_SLSH));
-    P( SYMB | RG,            SEND(KC_COMM));
-    P( SYMB | RT,            SEND(KC_PAST));
-    P( SYMB | RS,            SEND(KC_DOT));
+    // P( SYMB | ST1 | ST2,     SEND(KC_GRV));                    // `
+    // P( SYMB | LP,            SEND(KC_LSFT); SEND(KC_LBRC));    // {
+    // P( SYMB | LW,            SEND(KC_LBRC));
+    // P( SYMB | LH,            SEND(KC_LSFT); SEND(KC_RBRC));    // }
+    // P( SYMB | LR,            SEND(KC_RBRC));
+    // P( SYMB | ST1,           SEND(KC_LSFT); SEND(KC_BSLS));    // |
+    // P( SYMB | ST2,           SEND(KC_LSFT); SEND(KC_GRV));     // ~
+    // P( SYMB | RP  | RB,      SEND(KC_QUOT));
+    // P( SYMB | RP  | RG,      SEND(KC_LSFT); SEND(KC_QUOT));    // "
+    // P( SYMB | RF,            SEND(KC_KP_PLUS));
+    // P( SYMB | RP,            SEND(KC_MINS));
+    // P( SYMB | RB,            SEND(KC_EQL));
+    // P( SYMB | RL,            SEND(KC_SLSH));
+    // P( SYMB | RG,            SEND(KC_COMM));
+    // P( SYMB | RT,            SEND(KC_PAST));
+    // P( SYMB | RS,            SEND(KC_DOT));
 
     // Letters
     P( LSU | LSD,            SEND(KC_A));

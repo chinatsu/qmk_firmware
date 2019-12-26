@@ -28,18 +28,29 @@ extern i2c_status_t mcp23018_status;
 
 uint8_t init_mcp23018(void);
 
-/*  -------- LEFT HAND------RIGHT HAND ---------- */
-#define LAYOUT_ginny( L00,L01,L02,L03,L04,   R00,R01,R02,R03,R04) { \
-    { R00, KC_NO  },                    \
-    { R01,   KC_NO },      \
-    { R02,   KC_NO },    \
-    { R03,   KC_NO },    \
-    { R04,   KC_NO },    \
-   	{ L04, 		KC_NO},  	  \
-    { L03, 		KC_NO},    \
-    { L02, 		KC_NO},    \
-    { L01, 		KC_NO},   	\
-    { L00, 		KC_NO },    \
+
+#define LAYOUT_georgi(                                            \
+    L00,L01,L02,L03,L04,L05,            R00,R01,R02,R03,R04,R05,  \
+    L10,L11,L12,L13,L14,L15,            R10,R11,R12,R13,R14,R15,  \
+               	L20,L21,L22,            R20,R21,R22)              \
+                                                                  \
+    {                         \
+    { KC_NO,  R00,   R10,   R21},     \
+    { KC_NO,  R01,   R11,   R20},     \
+    { KC_NO,  R02,   R12,   R22},     \
+    { KC_NO,  R03,   R13,   KC_NO},   \
+    { KC_NO,  R04,   R14,   KC_NO},   \
+    { KC_NO,  R05,   R15,   KC_NO},   \
+    { KC_NO,  KC_NO, KC_NO, KC_NO},     \
+							  \
+    { KC_NO,  L05,   L15,   L22},     \
+    { KC_NO,  L04,   L14,   L21},     \
+    { KC_NO,  L03,   L13,   L20},     \
+    { KC_NO,  L02,   L12,   KC_NO},   \
+    { KC_NO,  L01,   L11,   KC_NO},   \
+    { KC_NO,  L00,   L10,   KC_NO},   \
+    { KC_NO,  KC_NO, KC_NO, KC_NO},     \
+                              \
 }
 
     /*{ KC_NO,  L04},  	  \
