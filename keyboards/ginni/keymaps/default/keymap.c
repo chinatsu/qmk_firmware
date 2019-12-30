@@ -10,44 +10,123 @@
 #include "sten.h"
 #include <print.h>
 
-#define MOD (F_5 | F_8)
+const long a = F_1;
+const long s = F_2;
+const long e = F_3;
+const long t = F_4;
+const long n = F_9;
+const long i = F_10;
+const long o = F_11;
+const long p = F_12;
+const long m1 = F_5;
+const long m2 = F_8;
 
 uint32_t processQwerty(bool lookup) {
-	P(MOD | F_4 | F_9,			SEND(KC_ENT));
-	P(MOD | F_1 | F_12,			SEND(KC_BSPC));
-	P(F_4 | F_9, SEND(KC_SPC));
+	P(m2, SEND(KC_SPC));
+	P(m1, SEND(KC_LSHIFT));
 
-	P(F_5 | F_1, SEND(KC_Q));
-	P(F_5 | F_2, SEND(KC_W));
-	P(F_5 | F_3, SEND(KC_E));
-	P(F_5 | F_4, SEND(KC_R));
-	P(F_5 | F_4 | F_9, SEND(KC_T));
-	P(F_8 | F_9 | F_4, SEND(KC_Y));
-	P(F_8 | F_9, SEND(KC_U));
-	P(F_8 | F_10, SEND(KC_I));
-	P(F_8 | F_11, SEND(KC_O));
-	P(F_8 | F_12, SEND(KC_P));
-	P(F_8 | F_1, SEND(KC_Z));
-	P(F_8 | F_2, SEND(KC_X));
-	P(F_8 | F_3, SEND(KC_C));
-	P(F_8 | F_4, SEND(KC_V));
-	P(F_8 | F_5 | F_8, SEND(KC_B));
-	P(F_8 | F_9 | F_5, SEND(KC_N));
-	P(F_5 | F_9, SEND(KC_M));
-	P(F_5 | F_10, SEND(KC_COMM));
-	P(F_5 | F_11, SEND(KC_DOT));
-	P(F_5 | F_12, SEND(KC_SLSH));
+	P(a | s | e | t, SEND(KC_TAB));
+	P(n | i | o | p, SEND(KC_ENT));
+	P(m2 | a | s | e | t, SEND(KC_TAB));
+	P(m2 | n | i | o | p, SEND(KC_ENT));
 
-	P(F_1, 				SEND(KC_A));
-	P(F_2, 				SEND(KC_S));
-	P(F_3, 				SEND(KC_D));
-	P(F_4, 				SEND(KC_F));
-	P(F_5, 				SEND(KC_G));
-	P(F_8, 				SEND(KC_H));
-	P(F_9, 				SEND(KC_J));
-	P(F_10, 				SEND(KC_K));
-	P(F_11, 				SEND(KC_L));
-	P(F_12, 				SEND(KC_SCLN));
+	P(a, SEND(KC_A));
+	P(s, SEND(KC_S));
+	P(e, SEND(KC_E));
+	P(t, SEND(KC_T));
+	P(n, SEND(KC_N));
+	P(i, SEND(KC_I));
+	P(o, SEND(KC_O));
+	P(p, SEND(KC_P));
+
+	P(a | s, SEND(KC_W));
+	P(a | e, SEND(KC_X));
+	P(a | t, SEND(KC_F));
+	P(a | n, SEND(KC_Q));
+	P(a | i, SEND(KC_Z));
+	P(a | o, SEND(KC_LBRC));
+	P(a | p, SEND(KC_SLSH));
+
+	P(s | e, SEND(KC_D));
+	P(s | t, SEND(KC_C));
+	P(s | n, SEND(KC_J));
+	P(s | i, SEND(KC_K));
+	P(s | o, SEND(KC_DOT));
+	P(s | p, SEND(KC_RBRC));
+
+	P(e | t, SEND(KC_R));
+	P(e | n, SEND(KC_Y));
+	P(e | i, SEND(KC_COMM));
+	P(e | o, SEND(KC_MINS));
+	P(e | p, SEND(KC_QUOT));
+
+	P(t | n, SEND(KC_B));
+	P(t | i, SEND(KC_V));
+	P(t | o, SEND(KC_G));
+	P(t | p, SEND(KC_BSPC));
+
+	P(n | i, SEND(KC_H));
+	P(n | o, SEND(KC_U));
+	P(n | p, SEND(KC_M));
+
+	P(i | o, SEND(KC_L));
+	P(i | p, SEND(KC_LSHIFT); SEND(KC_1));
+	P(m1 | i | p, SEND(KC_LSHIFT); SEND(KC_2));
+
+	P(o | p, SEND(KC_SCLN));
+
+	// Number layer?
+	P(m2 | a, SEND(KC_1));
+	P(m2 | s, SEND(KC_2));
+	P(m2 | e, SEND(KC_3));
+	P(m2 | t, SEND(KC_4));
+	P(m2 | n, SEND(KC_7));
+	P(m2 | i, SEND(KC_8));
+	P(m2 | o, SEND(KC_9));
+	P(m2 | p, SEND(KC_0));
+
+	P(m2 | a | s, SEND_STRING(":)"));
+	P(m2 | m1 | a | s, SEND_STRING(":("));
+	P(m2 | a | e, SEND(KC_LSHIFT); SEND(KC_8));
+	P(m2 | m1 | a | e, SEND(KC_SLSH));
+	P(m2 | a | t, SEND(KC_LSHIFT); SEND(KC_LBRC));
+	P(m2 | m1 | a | t, SEND(KC_LALT); SEND(KC_COMM));
+	P(m2 | a | n, SEND(KC_GRV));
+	P(m2 | a | i, SEND(KC_BSLS));
+	P(m2 | a | o, SEND(KC_LBRC));
+	P(m2 | a | p, SEND(KC_SLSH));
+
+	P(m2 | s | e, SEND(KC_LALT); SEND(KC_3));
+	P(m2 | m1 | s | e, SEND(KC_LALT); SEND(KC_4));
+	P(m2 | s | t, SEND_STRING("<a>"));
+	P(m2 | s | n, SEND_STRING("<bq>"));
+	P(m2 | s | i, SEND(KC_LALT); SEND(KC_P));
+	P(m2 | m1 | s | i, SEND(KC_LALT); SEND(KC_J));
+	P(m2 | s | o, SEND(KC_DOT));
+	P(m2 | s | p, SEND(KC_RBRC));
+
+	P(m2 | e | t, SEND(KC_5));
+	P(m2 | e | n, SEND_STRING("<p>"));
+	P(m2 | e | i, SEND(KC_COMM));
+	P(m2 | e | o, SEND(KC_MINS));
+	P(m2 | e | p, SEND(KC_QUOT));
+
+	P(m2 | t | n, SEND(KC_EQL));
+	P(m2 | t | i, SEND_STRING("<i>"));
+	P(m2 | t | o, SEND_STRING("<b>"));
+	P(m2 | t | p, SEND(KC_BSPC));
+
+	P(m2 | n | i, SEND(KC_6));
+	P(m2 | n | o, SEND_STRING("<u>"));
+	P(m2 | n | p, SEND(KC_LSHIFT); SEND(KC_RBRC));
+	P(m2 | m1 | n | p, SEND(KC_LALT); SEND(KC_DOT));
+
+	P(m2 | i | o, SEND(KC_LALT); SEND(KC_LSHIFT); SEND(KC_2));
+	P(m2 | m1 | i | o, SEND(KC_LALT); SEND(KC_Y));
+	P(m2 | i | p, SEND(KC_LSHIFT); SEND(KC_1));
+	P(m2 | m1 | i | p, SEND(KC_LSHIFT); SEND(KC_2));
+
+	P(m2 | o | p, SEND(KC_SCLN));
 	return 0;
 }
 // Blank template at the bottom
