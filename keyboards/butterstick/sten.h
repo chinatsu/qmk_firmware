@@ -6,7 +6,6 @@
 // Amen.
 
 #include QMK_KEYBOARD_H
-#include "mousekey.h"
 #include "keymap.h"
 #include "keymap_steno.h"
 #include "wait.h"
@@ -29,7 +28,6 @@ void 			SEND(uint8_t kc);
 void 			REPEAT(void);
 void 			SET_STICKY(uint32_t);
 void 			SWITCH_LAYER(int);
-void 			CLICK_MOUSE(uint8_t);
 
 // Keymap helper
 #define P(chord, act) if (cChord == (chord)) { if (!lookup) {act;} return chord;}
@@ -48,38 +46,25 @@ enum ORDER {
 		SRE, SRU, SRF, SRR, SRP, SRB, SRL, SRG, SRT, SRS, SRD, SRZ, SRES1, SRES2
 };
 
-// Break it all out
-#define FN	STN(SFN)
-#define PWR	STN(SPWR)
-#define ST1 STN(SST1)
-#define ST2 STN(SST2)
-#define ST3 STN(SST3)
-#define ST4 STN(SST4)
-#define LNO STN(SNUML) 	// STN1-6
-#define RNO STN(SNUMR) 	// STN7-C
-#define RES1 STN(SRES1) // Use reserved for sticky state
-#define RES2 STN(SRES2)
 
-#define LSU STN(SLSU)
-#define LSD STN(SLSD)
-#define LFT STN(SLT)  	// (L)e(F)t (T), preprocessor conflict
-#define LK  STN(SLK)
-#define LP  STN(SLP)
-#define LW  STN(SLW)
-#define LH  STN(SLH)
-#define LR  STN(SLR)
-#define LA  STN(SLA)
-#define LO  STN(SLO)
+#define T0 STN(SLSU)
+#define P0 STN(SLSD)
+#define T1 STN(SLT)  	// (L)e(F)t (T), preprocessor conflict
+#define P1  STN(SLK)
+#define T2 STN(SLP)
+#define P2  STN(SLW)
+#define T3 STN(SLH)
+#define P3  STN(SLR)
+#define T4 STN(SST1)
+#define P4 STN(SST2)
 
-#define RE  STN(SRE)
-#define RU  STN(SRU)
-#define RF  STN(SRF)
-#define RR  STN(SRR)
-#define RP  STN(SRP)
-#define RB  STN(SRB)
-#define RL  STN(SRL)
-#define RG  STN(SRG)
-#define RT  STN(SRT)
-#define RS  STN(SRS)
-#define RD  STN(SRD)
-#define RZ  STN(SRZ)
+#define T5 STN(SRF)
+#define P5  STN(SRR)
+#define T6 STN(SRP)
+#define P6  STN(SRB)
+#define T7 STN(SRL)
+#define P7  STN(SRG)
+#define T8 STN(SRT)
+#define P8  STN(SRS)
+#define T9 STN(SRD)
+#define P9  STN(SRZ)

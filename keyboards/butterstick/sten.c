@@ -22,7 +22,7 @@ uint32_t releasedChord = 0;  // Keys released from current chord
 uint32_t tChord        = 0;  // Protects state of cChord
 
 #ifndef STENOLAYERS
-uint32_t stenoLayers[]   = {PWR};
+uint32_t stenoLayers[]   = {P4};
 size_t   stenoLayerCount = sizeof(stenoLayers) / sizeof(stenoLayers[0]);
 #endif
 
@@ -48,33 +48,12 @@ uint16_t repTimer   = 0;
 #define REP_INIT_DELAY 750
 #define REP_DELAY 25
 
-// Mousekeys state
-bool   inMouse = false;
-int8_t mousePress;
-
 // All processing done at chordUp goes through here
 bool send_steno_chord_user(steno_mode_t mode, uint8_t chord[6]) {
     // Check for mousekeys, this is release
-#ifdef MOUSEKEY_ENABLE
-    if (inMouse) {
-        inMouse = false;
-        mousekey_off(mousePress);
-        mousekey_send();
-    }
-#endif
-
-    // Toggle Serial/QWERTY steno
-    if (cChord == (PWR | FN | ST1 | ST2)) {
-#ifndef NO_DEBUG
-        uprintf("Fallback Toggle\n");
-#endif
-        QWERSTENO = !QWERSTENO;
-
-        goto out;
-    }
 
     // handle command mode
-    if (cChord == (LSU | LSD | RD | RZ)) {
+    if (cChord == (T0| P0 | T9| P9)) {
 #ifndef NO_DEBUG
         uprintf("COMMAND Toggle\n");
 #endif
@@ -96,7 +75,7 @@ bool send_steno_chord_user(steno_mode_t mode, uint8_t chord[6]) {
     }
 
     // Handle Gaming Toggle,
-    if (cChord == (LSU | LSD | RD | RZ | LFT | LK | RS | RT) && keymapsCount > 1) {
+    if (cChord == (T0| P0 | T9| P9 | T1| P1 | T8| P8) && keymapsCount > 1) {
 #ifndef NO_DEBUG
         uprintf("Switching to QMK\n");
 #endif
@@ -104,22 +83,8 @@ bool send_steno_chord_user(steno_mode_t mode, uint8_t chord[6]) {
         goto out;
     }
 
-    // Lone FN press, toggle QWERTY
-#ifndef ONLYQWERTY
-    if (cChord == FN) {
-        (cMode == STENO) ? (cMode = QWERTY) : (cMode = STENO);
-        goto out;
-    }
-#endif
-
-    // Check for Plover momentary
-    if (cMode == QWERTY && (cChord & FN)) {
-        cChord ^= FN;
-        goto steno;
-    }
-
     // Do QWERTY and Momentary QWERTY
-    if (cMode == QWERTY || (cMode == COMMAND) || (cChord & (FN | PWR))) {
+    if (cMode == QWERTY || (cMode == COMMAND)) {
         processChord(false);
         goto out;
     }
@@ -130,12 +95,6 @@ bool send_steno_chord_user(steno_mode_t mode, uint8_t chord[6]) {
         goto out;
     }
 
-steno:
-    // Hey that's a steno chord!
-    inChord    = false;
-    chordIndex = 0;
-    cChord     = 0;
-    return true;
 
 out:
     cChord     = 0;
@@ -163,96 +122,66 @@ bool process_steno_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         // Mods and stuff
         case STN_ST1:
-            pr ? (cChord |= (ST1)) : (cChord &= ~(ST1));
+            pr ? (cChord |= (T4)) : (cChord &= ~(T4));
             break;
         case STN_ST2:
-            pr ? (cChord |= (ST2)) : (cChord &= ~(ST2));
-            break;
-        case STN_ST3:
-            pr ? (cChord |= (ST3)) : (cChord &= ~(ST3));
-            break;
-        case STN_ST4:
-            pr ? (cChord |= (ST4)) : (cChord &= ~(ST4));
-            break;
-        case STN_FN:
-            pr ? (cChord |= (FN)) : (cChord &= ~(FN));
-            break;
-        case STN_PWR:
-            pr ? (cChord |= (PWR)) : (cChord &= ~(PWR));
-            break;
-        case STN_N1 ... STN_N6:
-            pr ? (cChord |= (LNO)) : (cChord &= ~(LNO));
-            break;
-        case STN_N7 ... STN_NC:
-            pr ? (cChord |= (RNO)) : (cChord &= ~(RNO));
+            pr ? (cChord |= (P4)) : (cChord &= ~(P4));
             break;
 
         // All the letter keys
         case STN_S1:
-            pr ? (cChord |= (LSU)) : (cChord &= ~(LSU));
+            pr ? (cChord |= (T0)) : (cChord &= ~(T0));
             break;
         case STN_S2:
-            pr ? (cChord |= (LSD)) : (cChord &= ~(LSD));
+            pr ? (cChord |= (P0)) : (cChord &= ~(P0));
             break;
         case STN_TL:
-            pr ? (cChord |= (LFT)) : (cChord &= ~(LFT));
+            pr ? (cChord |= (T1)) : (cChord &= ~(T1));
             break;
         case STN_KL:
-            pr ? (cChord |= (LK)) : (cChord &= ~(LK));
+            pr ? (cChord |= (P1)) : (cChord &= ~(P1));
             break;
         case STN_PL:
-            pr ? (cChord |= (LP)) : (cChord &= ~(LP));
+            pr ? (cChord |= (T2)) : (cChord &= ~(T2));
             break;
         case STN_WL:
-            pr ? (cChord |= (LW)) : (cChord &= ~(LW));
+            pr ? (cChord |= (P2)) : (cChord &= ~(P2));
             break;
         case STN_HL:
-            pr ? (cChord |= (LH)) : (cChord &= ~(LH));
+            pr ? (cChord |= (T3)) : (cChord &= ~(T3));
             break;
         case STN_RL:
-            pr ? (cChord |= (LR)) : (cChord &= ~(LR));
-            break;
-        case STN_A:
-            pr ? (cChord |= (LA)) : (cChord &= ~(LA));
-            break;
-        case STN_O:
-            pr ? (cChord |= (LO)) : (cChord &= ~(LO));
-            break;
-        case STN_E:
-            pr ? (cChord |= (RE)) : (cChord &= ~(RE));
-            break;
-        case STN_U:
-            pr ? (cChord |= (RU)) : (cChord &= ~(RU));
+            pr ? (cChord |= (P3)) : (cChord &= ~(P3));
             break;
         case STN_FR:
-            pr ? (cChord |= (RF)) : (cChord &= ~(RF));
+            pr ? (cChord |= (T5)) : (cChord &= ~(T5));
             break;
         case STN_RR:
-            pr ? (cChord |= (RR)) : (cChord &= ~(RR));
+            pr ? (cChord |= (P5)) : (cChord &= ~(P5));
             break;
         case STN_PR:
-            pr ? (cChord |= (RP)) : (cChord &= ~(RP));
+            pr ? (cChord |= (T6)) : (cChord &= ~(T6));
             break;
         case STN_BR:
-            pr ? (cChord |= (RB)) : (cChord &= ~(RB));
+            pr ? (cChord |= (P6)) : (cChord &= ~(P6));
             break;
         case STN_LR:
-            pr ? (cChord |= (RL)) : (cChord &= ~(RL));
+            pr ? (cChord |= (T7)) : (cChord &= ~(T7));
             break;
         case STN_GR:
-            pr ? (cChord |= (RG)) : (cChord &= ~(RG));
+            pr ? (cChord |= (P7)) : (cChord &= ~(P7));
             break;
         case STN_TR:
-            pr ? (cChord |= (RT)) : (cChord &= ~(RT));
+            pr ? (cChord |= (T8)) : (cChord &= ~(T8));
             break;
         case STN_SR:
-            pr ? (cChord |= (RS)) : (cChord &= ~(RS));
+            pr ? (cChord |= (P8)) : (cChord &= ~(P8));
             break;
         case STN_DR:
-            pr ? (cChord |= (RD)) : (cChord &= ~(RD));
+            pr ? (cChord |= (T9)) : (cChord &= ~(T9));
             break;
         case STN_ZR:
-            pr ? (cChord |= (RZ)) : (cChord &= ~(RZ));
+            pr ? (cChord |= (P9)) : (cChord &= ~(P9));
             break;
     }
 
@@ -289,34 +218,6 @@ void matrix_scan_user(void) {
 
 // For Plover NKRO
 uint32_t processFakeSteno(bool lookup) {
-    P(LSU, SEND(KC_Q););
-    P(LSD, SEND(KC_A););
-    P(LFT, SEND(KC_W););
-    P(LP, SEND(KC_E););
-    P(LH, SEND(KC_R););
-    P(LK, SEND(KC_S););
-    P(LW, SEND(KC_D););
-    P(LR, SEND(KC_F););
-    P(ST1, SEND(KC_T););
-    P(ST2, SEND(KC_G););
-    P(LA, SEND(KC_C););
-    P(LO, SEND(KC_V););
-    P(RE, SEND(KC_N););
-    P(RU, SEND(KC_M););
-    P(ST3, SEND(KC_Y););
-    P(ST4, SEND(KC_H););
-    P(RF, SEND(KC_U););
-    P(RP, SEND(KC_I););
-    P(RL, SEND(KC_O););
-    P(RT, SEND(KC_P););
-    P(RD, SEND(KC_LBRC););
-    P(RR, SEND(KC_J););
-    P(RB, SEND(KC_K););
-    P(RG, SEND(KC_L););
-    P(RS, SEND(KC_SCLN););
-    P(RZ, SEND(KC_COMM););
-    P(LNO, SEND(KC_1););
-    P(RNO, SEND(KC_1););
 
     return 0;
 }
@@ -333,15 +234,9 @@ void processChord(bool useFakeSteno) {
         for (int i = 0; i <= chordIndex; i++) chordState[i] |= stickyBits;
     }
 
-    // Strip FN
-    if (cChord & FN) cChord ^= FN;
-
     // First we test if a whole chord was passsed
     // If so we just run it handling repeat logic
-    if (useFakeSteno && processFakeSteno(true) == cChord) {
-        processFakeSteno(false);
-        return;
-    } else if (processQwerty(true) == cChord) {
+    if (processQwerty(true) == cChord) {
         processQwerty(false);
         // Repeat logic
         if (repeatFlag) {
@@ -369,15 +264,6 @@ void processChord(bool useFakeSteno) {
         for (int i = 0; i <= chordIndex; i++) {
             cChord = chordState[i] & ~mask;
             if (cChord == 0) continue;
-
-            // Assume mid parse Sym is new chord
-            if (i != 0 && test != 0 && (cChord ^ test) == PWR) {
-                longestChord = test;
-                break;
-            }
-
-            // Lock SYM layer in once detected
-            if (mask & PWR) cChord |= PWR;
 
             // Testing for keycodes
             if (useFakeSteno) {
@@ -458,14 +344,4 @@ void SET_STICKY(uint32_t stick) {
 }
 void SWITCH_LAYER(int layer) {
     if (keymapsCount >= layer) layer_on(layer);
-}
-void CLICK_MOUSE(uint8_t kc) {
-#ifdef MOUSEKEY_ENABLE
-    mousekey_on(kc);
-    mousekey_send();
-
-    // Store state for later use
-    inMouse    = true;
-    mousePress = kc;
-#endif
 }
