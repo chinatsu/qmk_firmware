@@ -1,11 +1,11 @@
 # choc69
 
-![choc69](imgur.com image replace me!)
+![choc69](https://i.imgur.com/zsP1BpJ.jpg)
 
 A 69 key choc keyboard
 
 * Keyboard Maintainer: [chinatsu](https://github.com/chinatsu)
-* Hardware Supported: [choc660](https://github.com/chinatsu/choc660)
+* Hardware Supported: [choc69](https://github.com/chinatsu/keyboards/tree/main/choc69)
 * Hardware Availability: At your preferred PCB vendor :)
 
 Make example for this keyboard (after setting up your build environment):
